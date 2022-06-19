@@ -1,28 +1,72 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <table class="tb">
+      <tr>
+        <th>编号</th>
+        <th>品牌名称</th>
+        <th>创立时间</th>
+        <th>操作</th>
+      </tr>
+      <tr v-for="(item, index) in theCar" :key="item">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.time }}</td>
+        <td>
+          <button @click="del(index)">删除</button>
+        </td>
+      </tr>
+      <tr v-if="theCar.length === 0">
+        <td colspan="4">没有数据咯~</td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {
+      theCar: [
+        { id: 1, name: "奔驰", time: "2020-08-01" },
+        { id: 2, name: "宝马", time: "2020-08-02" },
+        { id: 3, name: "奥迪", time: "2020-08-03" },
+      ],
+    };
+  },
+  methods: {
+    del(index) {
+      this.theCar.splice(index, 1);
+    },
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  width: 600px;
+  margin: 10px auto;
+}
+
+.tb {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.tb th {
+  background-color: #0094ff;
+  color: white;
+}
+
+.tb td,
+.tb th {
+  padding: 5px;
+  border: 1px solid black;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.add {
+  padding: 5px;
+  border: 1px solid black;
+  margin-bottom: 10px;
 }
 </style>
